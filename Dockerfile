@@ -16,6 +16,4 @@ RUN pip install --upgrade pip wheel \
 WORKDIR /app
 COPY . .
 
-EXPOSE 5000
-
 CMD python3 -m devgagan
