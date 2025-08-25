@@ -7,8 +7,6 @@ RUN apt-get update && apt-get install -y \
     ffmpeg \
     wget \
     bash \
-    neofetch \
-    software-properties-common \
  && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
