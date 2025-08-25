@@ -1,6 +1,5 @@
-FROM python:3.10.4-slim-buster
+FROM python:3.10-slim-bullseye
 
-# Update and install only valid packages
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -11,7 +10,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY requirements.txt .
 
-# Upgrade pip + install Python dependencies
 RUN pip install --upgrade pip wheel \
  && pip install --no-cache-dir -U -r requirements.txt
 
