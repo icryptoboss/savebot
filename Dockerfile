@@ -1,28 +1,14 @@
-FROM python:3.10-slim-bullseye
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    ffmpeg \
-    wget \
-    bash \
- && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /app
-
-# Copy requirements first for caching
+FROM python:3.10.4-slim-buster
+RUN apt update && apt upgrade -y
+RUN apt-get install git curl python3-pip ffmpeg -y
+RUN apt-get -y install git
+RUN apt-get install -y wget python3-pip curl bash neofetch ffmpeg software-properties-common
 COPY requirements.txt .
 
-# Upgrade pip and install Python dependencies
-RUN pip install --upgrade pip wheel \
- && pip install --no-cache-dir -U -r requirements.txt
-
-# Copy project files
+RUN pip3 install wheel
+RUN pip3 install --no-cache-dir -U -r requirements.txt
+WORKDIR /app
 COPY . .
-
-# Expose port for Render web service
 EXPOSE 5000
 
-# Start Flask and bot together
-CMD bash -c "flask run -h 0.0.0.0 -p 5000 & python3 -m devgagan"
+CMD flask run -h 0.0.0.0 -p 5000 & python3 -m devgagan
